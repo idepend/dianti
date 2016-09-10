@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    style="@style/AppCompatTheme"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.app.dianti.refactor.activity.maintenance.MaintenanceAddActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/main_color"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="签到"
+            android:textSize="13sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical|end"
+                android:text="位置签到"/>
+
+            <TextView
+                android:id="@+id/location_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:hint="杭州市西湖区文一西路"/>
+
+            <ImageView
+                android:id="@+id/location_image_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:src="@drawable/location"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical|end"
+                android:text="二维码签到"/>
+
+            <TextView
+                android:id="@+id/qrcode_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="请点击右侧二维码"/>
+
+            <ImageView
+                android:id="@+id/qrcode_image_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:src="@drawable/qr_code"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical|end"
+                android:text="照片签到"/>
+
+            <TextView
+                android:id="@+id/photo_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="请点击右侧拍照"/>
+
+            <ImageView
+                android:id="@+id/photo_image_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:src="@drawable/photo_camera"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/sign_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/login_btn_shape"
+            android:text="签到"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+        <Spinner
+            android:id="@+id/type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/main_color"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="维保项明细"
+            android:textSize="13sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/main_color">
+
+            <CheckBox
+                android:id="@+id/all_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="项目名称"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="项目要求"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/type_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/main_color"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="其他"
+            android:textSize="13sp"/>
+
+        <EditText
+            android:id="@+id/desc_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_edit"
+            android:gravity="top|left"
+            android:hint="问题描述"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/prove_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_edit"
+            android:gravity="top|left"
+            android:hint="现场取证"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/take_image_view"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/photo_camera"/>
+
+        <Button
+            android:id="@+id/commit_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/login_btn_shape"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+</ScrollView>

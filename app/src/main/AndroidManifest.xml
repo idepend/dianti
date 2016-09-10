@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.app.dianti"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <application
+        android:name=".AppAplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_log"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme_Animation_Activity_RightInRightOut">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a59cb978c6d89cff6f882bd4b2f38bc4"/>
+        <!-- 蒲公英 -->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="8eba7fe7c45c2116efaee14aefbe37d2" >
+        </meta-data>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.ElevatorQueryActivity"/>
+        <activity android:name=".activity.map.MapActivity"/>
+        <activity android:name=".activity.MyWarnActivity"/>
+        <activity android:name=".activity.ElevatorListActivity"/>
+        <activity android:name=".activity.ElevatorDetailListActivity"/>
+        <activity android:name=".activity.ElevatorDetailActivity"/>
+        <activity android:name=".activity.maintenance.MaintenanceActivity"/>
+        <activity android:name=".activity.dossier.DossierActivity"/>
+        <activity android:name=".activity.patrol.PatrolActivity"/>
+        <activity android:name=".activity.annual.AnnualActivity"/>
+        <activity android:name=".activity.reskju.ReskjuActivity"/>
+        <activity android:name=".activity.reskju.StatementActivity"/>
+        <activity android:name=".activity.notice.NoticeActivity"/>
+        <activity android:name=".activity.notice.NoticeDetailActivity"/>
+        <activity android:name=".activity.myhistory.MyHistroyActivity"/>
+        <activity android:name=".activity.maintenance.StartMaintenanceActivity"/>
+        <activity android:name=".activity.dangan.EleBaseInfoActivity"/>
+        <activity android:name=".activity.dangan.EleRealMonitorActivity"/>
+        <activity android:name=".activity.SettingServerActivity"/>
+
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <activity
+            android:name=".activity.base.ElevatorListActivity"
+            android:label="电梯列表"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.base.MaintenanceActivity"
+            android:label="电梯维保"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.base.AnnualActivity"
+            android:label="电梯年检"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.RescueListActivity"
+            android:label="故障报警"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.InspectionActivity"
+            android:label="电梯巡查"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name="com.mycroft.qrscan.skill.activity.CaptureActivity"
+            android:label="二维码扫描"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.maintenance.MainViewActivity"
+            android:label="详情查看"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.inspection.InspectionAddActivity"
+            android:label="电梯巡查"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.MaintenanceDetailActivity"
+            android:label="任务详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.AnnualDetailActivity"
+            android:label="任务详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.RescueDetailActivity"
+            android:label="任务详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.InspectionDetailActivity"
+            android:label="任务详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.base.MaintenanceAddActivity"
+            android:label="电梯维保"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".refactor.activity.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".refactor.activity.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".refactor.activity.list.ElevatorListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".refactor.activity.list.ElevatorDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity android:name=".refactor.activity.list.ElevatorQueryActivity">
+        </activity>
+        <activity android:name=".refactor.activity.history.HistoryListActivity">
+        </activity>
+        <activity android:name=".refactor.activity.maintenance.MaintenanceActivity">
+        </activity>
+        <activity
+            android:name=".refactor.activity.maintenance.MaintenanceAddActivity"
+            android:label="电梯维保"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+
+        <activity
+            android:name=".activity.reskju.StartPeopleRescueActivity"
+            android:label="困人救援"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

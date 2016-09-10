@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.app.dianti.refactor.activity.list.ElevatorDetailActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/ssjk_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="实时监控"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+    <TextView
+        android:id="@+id/dtxx_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="电梯详细信息"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+    <TextView
+        android:id="@+id/dtxc_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="实时监控"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+    <TextView
+        android:id="@+id/dtnj_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="电梯年检"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+    <TextView
+        android:id="@+id/dtwb_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="电梯维保"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+    <TextView
+        android:id="@+id/yjjy_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/forward"
+        android:gravity="center_vertical"
+        android:text="电梯救援、故障"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+    <include layout="@layout/divider"/>
+
+</LinearLayout>

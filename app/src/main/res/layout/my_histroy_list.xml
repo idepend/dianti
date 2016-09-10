@@ -1,0 +1,177 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title_back_bar" />
+
+    <LinearLayout
+        android:id="@+id/xunchaRow"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#faf7fa"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="电梯巡查"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/right_arrow_btn" >
+        </ImageView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_view_row_split_color" />
+
+    <LinearLayout
+        android:id="@+id/nianjianRow"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#faf7fa"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="电梯年检"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/right_arrow_btn" >
+        </ImageView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_view_row_split_color" />
+
+    <LinearLayout
+        android:id="@+id/weibaoRow"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#faf7fa"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="电梯维保"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/right_arrow_btn" >
+        </ImageView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_view_row_split_color" />
+
+    <LinearLayout
+        android:id="@+id/jiuyuanRow"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#faf7fa"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="电梯救援、故障"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/right_arrow_btn" >
+        </ImageView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_view_row_split_color" />
+
+</LinearLayout>

@@ -1,0 +1,89 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!-- Add by fycus_peng -->
+    <!-- animation themes -->
+    <style name="Theme_Animation_Activity_RightInRightOut" parent="@style/AppCompatTheme">
+
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="colorAccent">@color/main_color</item>
+
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity_RightInRightOut</item>
+    </style>
+
+    <style name="Theme_Animation_Dialog_RightInRightOut" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/Animation_Dialog_RightInRightOut</item>
+    </style>
+
+    <!-- animation styles -->
+    <!-- 用于普通的Activity -->
+    <style name="Animation_Activity_RightInRightOut" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- 另一种实现方法，只不过这个指定activity相关的window的animation（上面是Activity的animation） -->
+    <style name="Animation_Activity_RightInRightOut1" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+        <item name="android:windowHideAnimation">@anim/slide_out_left</item>
+        <item name="android:windowShowAnimation">@anim/slide_in_left</item>
+    </style>
+
+    <!-- 用于Dialog类型的Activity，其如果想设置动画必须用这个（继承Animation.Dialog） -->
+    <style name="Animation_Dialog_RightInRightOut" parent="@android:style/Animation.Dialog">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- end of animation style -->
+
+    <!-- End by fycus_peng -->
+
+    <style name="AppCompatTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="navigationIcon">@drawable/title_back</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style parent="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" name="share_activity" mce_bogus="1">
+
+    <item name="android:background">@android:color/transparent</item>
+
+    <item name="android:windowBackground">@color/activity_background</item>
+
+    <item name="android:backgroundDimEnabled">true</item>
+
+    <item name="android:backgroundDimAmount">0.4</item>
+
+</style>
+</resources>

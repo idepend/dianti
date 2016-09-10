@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title_back_bar" />
+
+    <LinearLayout
+        android:id="@+id/loginView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/serverAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_input_shape"
+                android:paddingLeft="70dp"
+                android:singleLine="true"
+                android:text="http://218.75.75.34:10000"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="平台地址:"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/serverAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_input_shape"
+                android:paddingLeft="70dp"
+                android:singleLine="true"
+                android:text="http://218.75.75.34:88"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="平台地址2:"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/saveServerAddressBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_btn_shape"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

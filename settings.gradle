@@ -1,0 +1,2 @@
+include ':app', ':qrscan1'
+project(':qrscan1').projectDir = new File('qrscan')

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#efefef"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/main_color"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#bbbbbb"/>
+
+        <TextView
+            android:id="@+id/rowTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="13dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/contextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#bbbbbb"/>
+
+        <LinearLayout
+            android:id="@+id/weibaoDoView"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="#ffffff"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/endBtn"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/login_btn_shape"
+                android:text="结单"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/peopleRescue"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/login_btn_shape"
+                android:text="困人救援"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/confirmDoView"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="#ffffff"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/confirmDo"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/login_btn_shape"
+                android:text="物业确认"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

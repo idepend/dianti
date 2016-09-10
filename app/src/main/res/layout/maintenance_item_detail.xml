@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:gravity="center_vertical"
+    android:minHeight="35dp"
+    android:orientation="horizontal" >
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.5"
+        android:scaleY="0.5" />
+
+    <TextView
+        android:id="@+id/proj_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="机房、滑轮间环境"
+        android:textColor="@color/black"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/proj_need"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="清洁、门窗完好、照明正常"
+        android:textColor="@color/black"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:text="待审查"
+        android:textColor="@color/black"
+        android:textSize="13dp" />
+
+</LinearLayout>

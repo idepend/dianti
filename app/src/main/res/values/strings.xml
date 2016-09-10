@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">拱墅电梯</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="default_qr_code">请点击扫描二维码</string>
+
+</resources>

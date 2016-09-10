@@ -1,0 +1,83 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/main_color"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/left_btn"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_back"
+                android:clickable="false"
+                android:text="返回"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:tint="#737373"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/titleBarName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="电梯列表"
+            android:textColor="@color/white"
+            android:textSize="19dp"/>
+
+        <!--
+             <LinearLayout
+            android:id="@+id/right_btn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center" >
+
+            <ImageButton
+                android:layout_width="23dp"
+                android:layout_height="28dp"
+                android:background="@drawable/icon_search"
+                android:clickable="false"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:tint="#737373" />
+        </LinearLayout>
+        -->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/near_ele"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#CCFFFFFF"
+            android:gravity="center"
+            android:text="附近电梯"/>
+    </RelativeLayout>
+
+</LinearLayout>

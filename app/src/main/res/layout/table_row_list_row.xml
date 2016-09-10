@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff" >
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:minHeight="35dp"
+        android:text="测试"
+        android:textColor="@color/black"
+        android:textSize="13dp" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/valueText"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_toRightOf="@+id/nameText"-->
+        <!--android:gravity="left|center_vertical"-->
+        <!--android:minHeight="35dp"-->
+        <!--android:padding="5dp"-->
+        <!--android:text="如果"-->
+        <!--android:textColor="@color/tableColValue"-->
+        <!--android:textSize="13dp" />-->
+
+    <LinearLayout
+        android:id="@+id/valueView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/nameText"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/valueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="35dp"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/tableColValue"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bbbbbb" />
+
+</RelativeLayout>
