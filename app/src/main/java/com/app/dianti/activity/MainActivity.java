@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -50,6 +51,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private UserInfo userInfo;
     private boolean isWeibao;
     private boolean isXuncha;
+    private LinearLayout notice;
+    private LinearLayout layoutNull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +95,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
         AppContext.apiUrlBuild();
         init();
+        if (!localServerAddress2.equals(AppContext.PLATFORM_ADDRESS_ONE) ){
+            notice.setVisibility(View.GONE);
+            layoutNull.setVisibility(View.VISIBLE);
+            titleTv.setText("拱墅质监");
+        }else{
+            titleTv.setText("增阔科技");
+        }
 
-//        Log.e("wj", "onCreate: "+ getVersion()+" versionCode="+getVersionCode());
     }
 
     @Subscribe(threadMode = MAIN)
@@ -231,6 +240,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         btn_weibao= (ImageButton) findViewById(R.id.weibaoBtn);
         btn_xucha= (ImageButton) findViewById(R.id.xunchaBtn);
         titleTv= (TextView) findViewById(R.id.main_title);
+        notice= (LinearLayout) findViewById(R.id.notice_layout);
+        layoutNull= (LinearLayout) findViewById(R.id.layout_null);
         findViewById(R.id.xunchaBtn).setOnClickListener(this);
         findViewById(R.id.nianjianBtn).setOnClickListener(this);
         findViewById(R.id.jiuyuanBtn).setOnClickListener(this);
@@ -258,8 +269,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
             btn_weibao.setBackgroundResource(R.drawable.diantiweibao_enabled);
         }
 
-    initData();
-
+        initData();
     }
 
     @Override

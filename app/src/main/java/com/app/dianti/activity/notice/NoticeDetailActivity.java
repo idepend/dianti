@@ -1,13 +1,33 @@
 package com.app.dianti.activity.notice;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.app.dianti.R;
 import com.app.dianti.activity.BaseActivity;
+import com.app.dianti.common.AppContext;
+import com.app.dianti.util.DateUtils;
+import com.app.dianti.vo.ResponseData;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Map;
+
+import okhttp3.Call;
 
 /**
  * Created by Lenovo on 2016/9/9.
@@ -15,6 +35,7 @@ import com.app.dianti.activity.BaseActivity;
 
 public class NoticeDetailActivity extends BaseActivity {
 
+    private static final String TAG ="wj" ;
     private TextView titleTv;
     private TextView contentTv;
     private TextView timeTv;
@@ -24,8 +45,9 @@ public class NoticeDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_detail);
         initTitleBar("公告详情");
+        String id = getIntent().getStringExtra("id");
         initView();
-        initData();
+        initData(id);
     }
     protected void initTitleBar(String title) {
         leftBtn = findViewById(R.id.left_btn);
@@ -51,49 +73,92 @@ public class NoticeDetailActivity extends BaseActivity {
         timeTv= (TextView) findViewById(R.id.timeTv);
     }
 
-    /**
-     * 字符串
-     *
-     * @return
-     */
-    private String descString() {
-        return "不是让自己痛苦，就是让自己坚强，花的力气其实相同。同样的遭遇，可能使你不快乐，觉得处处不如意，换个角度，有可能就让你感到愉快和如愿。你的心，永远是最忠诚于你的东西。你的任务，就是学着让你的心灵为你工作，而不是处处和你作对。一个人，千万不能跟自己作对。\n" + "<img src='" + R.drawable.dianziditu
-                + "'/>" + "+志不立，天下无可成之事。赚钱之道很多，但是找不到赚钱的种子，便成不了事业家。自古成功在尝试。\n" + "<img src='" + R.drawable.dangan
-                + "'/>" + "+兜兜转转爱恨间，几人快乐几人欢。感情总是这样，明明很在乎，却口是心非地装着无所谓；明明很看重，却言不由衷说不需要谁懂。人生是场缘，" +
-                "聚散总会有，擦肩的是最客，携手的是情，不来不往的没缘分，珍惜人生梦一场。别怨，情深意浓缘分簿；别恨，快乐时少烦恼多。无怨无悔才是人生最美。" +
-                "路有短有长，事有喜有伤，味有涩有凉。走过千山万水，还是小家最美，经过姹紫嫣红，还是淡然长久，越过繁华喧闹，还是平淡最好，唯有经历，" +
-                "才能懂得。"; //"<img src='"+ http://images.csdn.net/20130609/zhuanti.jpg + "'/>" + "";
+    private void initData(String id) {
+    PostFormBuilder postFormBuilder = OkHttpUtils.post().url(AppContext.API_NOTICE_DETAIL).addParams("token", AppContext.userInfo.getToken())
+            .addParams("id", id);
+    postFormBuilder.build().execute(new StringCallback() {
+        @Override
+        public void onResponse(String respData, int i) {
+            ResponseData responseData = JSON.parseObject(respData, ResponseData.class);
+                if (responseData.getCode().equals("200")) {
+                    Map<String, Object> result = responseData.getData();
+                    if (result == null) {
+                        return;
+                    }
+                    try {
+                        titleTv.setText(result.get("title").toString());
+                        final String content=result.get("content").toString();
+                        Thread t = new Thread(new Runnable() {
+                            Message msg = Message.obtain();
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                /**
+                                 * 要实现图片的显示需要使用Html.fromHtml的一个重构方法：public static Spanned
+                                 * fromHtml (String source, Html.ImageGetterimageGetter,
+                                 * Html.TagHandler
+                                 * tagHandler)其中Html.ImageGetter是一个接口，我们要实现此接口，在它的getDrawable
+                                 * (String source)方法中返回图片的Drawable对象才可以。
+                                 */
+                                Html.ImageGetter imageGetter = new Html.ImageGetter() {
 
-    }
+                                    @Override
+                                    public Drawable getDrawable(String source) {
+                                        // TODO Auto-generated method stub
+                                        URL url;
+                                        Drawable drawable = null;
+                                        try {
+                                            url = new URL(source);
+                                            drawable = Drawable.createFromStream(
+                                                    url.openStream(), null);
+                                            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                                            int width = wm.getDefaultDisplay().getWidth();
+                                            drawable.setBounds(0,0, width-55,350);
+                                        } catch (MalformedURLException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                        return drawable;
+                                    }
+                                };
+                                CharSequence test = Html.fromHtml(content, imageGetter, null);
+                                msg.what = 0x101;
+                                msg.obj = test;
+                                handler.sendMessage(msg);
+                            }
+                        });
+                        t.start();
 
-    private void initData() {
-        contentTv.setText(Html.fromHtml(descString(), getImageGetterInstance(), null));
-    }
+                        timeTv.setText("时间："+DateUtils.secondToDateStr2(result.get("create_date").toString()));
 
-    /**
-     * ImageGetter用于text图文混排
-     *
-     * @return
-     */
-    public Html.ImageGetter getImageGetterInstance() {
-        Html.ImageGetter imgGetter = new Html.ImageGetter() {
-            @Override
-            public Drawable getDrawable(String source) {
-                int fontH = (int) (getResources().getDimension(
-                        R.dimen.dp_60) * 1.5);
-                int id = Integer.parseInt(source);
-                Drawable d = getResources().getDrawable(id);
-                int height = fontH;
-                int width = (int) ((float) d.getIntrinsicWidth() / (float) d
-                        .getIntrinsicHeight()) * fontH;
-                if (width == 0) {
-                    width = d.getIntrinsicWidth();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "数据解析失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+               } else {
+                    Toast.makeText(NoticeDetailActivity.this,"加载数据失败!请返回后重试。",Toast.LENGTH_SHORT).show();
                 }
-                d.setBounds(0, 0, width, height);
-                return d;
             }
-        };
-        return imgGetter;
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+        });
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+          super.handleMessage(msg);
+            if (msg.what == 0x101) {
+                contentTv.setText((CharSequence) msg.obj);
+            }
+        }
+    };
 
 }

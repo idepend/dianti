@@ -47,6 +47,8 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
 
     private boolean mIsHistory;
     private Handler updateHandler;
+    private String startTime;
+    private String endTime;
 
     public RescueListAdapter(boolean isHistory, Handler updateHandler, Context context, List<ResureListEntity.ListEntity> data) {
         super(context, R.layout.reskju_table_row2, data);
@@ -66,6 +68,7 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
         }
 
         final ResureListEntity.ListEntity row = getItem(position);
+
         final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
         data.add(DataUtil.getColMap("    注册编码", row.getEle_code()));
         data.add(DataUtil.getColMap("    电梯名称", row.getEle_name()));
@@ -103,6 +106,9 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
             typeName = type;
         }
         data.add(DataUtil.getColMap("    故障类型", typeName));
+
+        startTime=row.getStart_date();
+        endTime=row.getEnd_date();
 
         String status = row.getStatus();
         String statusName = null;
@@ -168,7 +174,7 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
             convertView.findViewById(R.id.confirmDo).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   confirm(row.getId().toString());
+                    confirm(row.getId().toString());
                 }
             });
 
@@ -196,9 +202,6 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
             }
         }
 
-        /**
-         * 进入故障详情页
-         */
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -256,8 +259,8 @@ public class RescueListAdapter extends ArrayAdapter<ResureListEntity.ListEntity>
             map.put("reason", reason);
         }
 
-        map.put("startTime", "0");
-        map.put("endTime", "0");
+        map.put("startTime", startTime);
+        map.put("endTime", endTime);
 
         String parmas = JSON.toJSONString(map);
         OkHttpUtils.post().url(AppContext.API_ELE_RESCUE_CONFIRM).addParams("data", parmas)

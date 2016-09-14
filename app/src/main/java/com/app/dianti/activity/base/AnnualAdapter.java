@@ -56,12 +56,11 @@ public final class AnnualAdapter extends ArrayAdapter<Map<String, Object>> {
             }
 
             final Map<String, Object> row = getItem(position);
-
             List<Map<String, String>> data = new ArrayList<Map<String, String>>();
             Map<String, String> col = new HashMap<String, String>();
             col.put("name", "    电梯地址");
             try {
-                col.put("value", row.get("an_dep_name") + "");
+                col.put("value", row.get("ele_address") + "");
             } catch (Exception e) {
                 col.put("value", "");
                 e.printStackTrace();

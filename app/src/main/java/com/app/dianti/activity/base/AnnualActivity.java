@@ -60,6 +60,7 @@ public final class AnnualActivity extends CommonListActivity {
             id = extras.getString("id", "");
         }
 
+        EventBus.getDefault().register(this);
         mAdapter = new AnnualAdapter(isHistory, this, mMapList);
         super.onCreate(savedInstanceState);
 
@@ -86,6 +87,7 @@ public final class AnnualActivity extends CommonListActivity {
         int queryType = type;
 
         mIsLoading = true;
+//        Log.i("wj", "id="+id+" status: "+status+"  type== "+queryType);
         OkHttpUtils.post().url(AppContext.API_LOGIN_ANNUAL)
                 .addParams("token", AppContext.userInfo.getToken())
                 .addParams("id", id)
@@ -113,7 +115,7 @@ public final class AnnualActivity extends CommonListActivity {
                     }
                     mMapList.addAll(list);
                     mAdapter.notifyDataSetChanged();
-                    EventBus.getDefault().post(new RefreshEvent());
+//                    EventBus.getDefault().post(new RefreshEvent());
                 } else {
                     Toast.makeText(AnnualActivity.this, "加载数据失败!请返回后重试。", Toast.LENGTH_SHORT).show();
                 }
@@ -162,7 +164,6 @@ public final class AnnualActivity extends CommonListActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTmpPath)));
 
         startActivityForResult(intent, REQUEST_PHOTO_COMPLETE);
-        Logs.e(mTmpPath);
     }
 
     @Override

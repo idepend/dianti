@@ -3,6 +3,17 @@ package com.app.dianti.common;
 import com.app.dianti.vo.UserInfo;
 
 public class AppContext {
+
+    /**
+     * 增阔平台地址1
+     */
+    public static String PLATFORM_ADDRESS_ONE="http://121.40.89.242:80";
+
+    /**
+     * 增阔平台地址2
+     */
+    public static String PLATFORM_ADDRESS_TWO="http://121.40.89.242:10000";
+
     /**
      * 类型--档案历史(状态为已完成的数据)
      */
@@ -80,6 +91,11 @@ public class AppContext {
      * 年检记录接口
      */
     public static String API_LOGIN_DANGAN;
+
+    /**
+     * 年检详情
+     */
+    public static String API_ANNUAL_DETAIL;
 
     /**
      * 应急救援记录接口
@@ -170,6 +186,16 @@ public class AppContext {
      */
     public static String API_RESCUE_VIEW;
 
+    /**
+     * 通知公告接口
+     */
+    public static String API_NOTICE_LIST;
+
+    /**
+     * 公告详情
+     */
+    public static String API_NOTICE_DETAIL;
+
     public static void apiUrlBuild() {
         /**
          * 登录接口
@@ -218,6 +244,8 @@ public class AppContext {
          */
         API_LOGIN_DANGAN = SERVER_URL_2 +"/Home/MEle/eleFile";
 
+        API_ANNUAL_DETAIL= SERVER_URL_2 +"/Home/MEle/annualInfo";
+
         /**
          * 应急救援记录接口
          */
@@ -235,6 +263,16 @@ public class AppContext {
          * 根据坐标获取周围的电梯--信息接口
          */
         API_GET_ELE_NEAR = SERVER_URL_2 + "/Home/MEle/getelebylocation";
+
+        /**
+         * 通知公告列表
+         */
+        API_NOTICE_LIST = SERVER_URL_2 + "/Home/MNotice/notice_list";
+
+        /**
+         * 公告详情
+         */
+        API_NOTICE_DETAIL=SERVER_URL_2 + "/Home/MNotice/getnotice";
 
         /**
          * 年检-继续整改--信息接口

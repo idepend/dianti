@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -13,6 +12,10 @@ import com.app.dianti.common.AppContext;
 import com.app.dianti.net.NetService2;
 import com.app.dianti.net.OnResponseListener;
 import com.app.dianti.net.entity.ResureListEntity;
+import com.app.dianti.net.event.RefreshEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +44,10 @@ public class RescueListActivity extends CommonListActivity {
             type = extras.getInt("type", 2);
             id = extras.getString("id", "");
         }
-
+        EventBus.getDefault().register(this);
         mAdapter = new RescueListAdapter(isHistory, updateListHandler, this, mMapList);
         super.onCreate(savedInstanceState);
+
     }
 
     private Handler updateListHandler = new Handler(){
@@ -53,10 +57,21 @@ public class RescueListActivity extends CommonListActivity {
         }
     };
 
+    @Subscribe
+    public void onEvent(RefreshEvent event){
+        loadData(1);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         updateListHandler.sendEmptyMessage(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,19 +19,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.app.dianti.R;
 import com.app.dianti.activity.BaseActivity;
-import com.app.dianti.activity.base.RescueListActivity;
 import com.app.dianti.common.AppContext;
 import com.app.dianti.net.NetService;
 import com.app.dianti.net.NetService2;
 import com.app.dianti.net.OnResponseListener;
-import com.app.dianti.net.entity.MaintenanceAddEntity;
 import com.app.dianti.net.event.RefreshEvent;
-import com.app.dianti.util.ConverterUtil;
 import com.app.dianti.util.ImageUtils;
 import com.app.dianti.util.Logs;
 import com.app.dianti.vo.ResponseData;
-import com.bumptech.glide.Glide;
-import com.mycroft.qrscan.skill.activity.CaptureActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -41,11 +35,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -259,7 +251,6 @@ public class StatementActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-
     private void finishRescue() {
         EditText reasonText = (EditText) findViewById(R.id.reason);
         EditText picText = (EditText) findViewById(R.id.pic);
@@ -288,15 +279,15 @@ public class StatementActivity extends BaseActivity implements OnClickListener {
         //是否解救成功 //0失败，1成功
         map.put("isSuccess", 1);
 
-        String parmas = JSON.toJSONString(map);
+        final String parmas = JSON.toJSONString(map);
 
         Logs.e(parmas);
-
         OkHttpUtils.post().url(AppContext.API_ELE_RESCUE_WAIT_CONFIRM).addParams("data", parmas).build().execute(new StringCallback() {
 
             @Override
             public void onResponse(String respData, int arg1) {
                 ResponseData responseData = JSON.parseObject(respData, ResponseData.class);
+
                 if (responseData.getCode().equals("200")) {
                     tip("保存成功!");
                     EventBus.getDefault().post(new RefreshEvent());

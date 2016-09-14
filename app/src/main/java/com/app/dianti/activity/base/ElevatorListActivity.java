@@ -105,7 +105,7 @@ public final class ElevatorListActivity extends CommonListActivity implements Ad
                 new OnResponseListener<String>() {
                     @Override
                     public void onSuccess(String respData) {
-
+                        Logs.e(respData);
                         mIsLoading = false;
                         mSwipeRefreshLayout.setRefreshing(false);
                         ResponseData responseData = JSON.parseObject(respData, ResponseData.class);

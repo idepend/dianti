@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -107,12 +106,14 @@ public class MaintenanceActivity extends CommonListActivity {
         OkHttpUtils.post().url(AppContext.API_LOGIN_MAINTENANCE).addParams("data", parmas).build().execute(new StringCallback() {
             @Override
             public void onResponse(String respData, int arg1) {
-                Log.i("wj", "onResponse: ----->  "+respData.toString());
                 mIsLoading = false;
                 mSwipeRefreshLayout.setRefreshing(false);
                 ResponseData responseData = JSON.parseObject(respData, ResponseData.class);
 //                Log.i("wj", "onResponse: "+responseData.getCode()+"  "+responseData.getData()+"  "+responseData.getMsg());
                 if (responseData.getCode().equals("200")) {
+                    if (responseData.getDataInt("totalPage")==null){
+                        return;
+                    }
                     mTotalPage = responseData.getDataInt("totalPage");
                     mCurrentPage = responseData.getDataInt("currentPage");
 

@@ -52,6 +52,8 @@ public class RescueDetailActivity extends CommonActivity {
     private ImageView imageView;
     private boolean isBack;
     private static final String TAG ="wj";
+    private String startTime;
+    private String endTime;
 
     public static Intent getIntent(@NonNull Context context, ResureListEntity.ListEntity data) {
         final Intent intent = new Intent(context, RescueDetailActivity.class);
@@ -71,12 +73,11 @@ public class RescueDetailActivity extends CommonActivity {
         final String item = getIntent().getStringExtra(EXTRA_DATA);
 
         final ResureListEntity.ListEntity row = JSON.parseObject(item, ResureListEntity.ListEntity.class);
-
+        Log.i(TAG, "onCreate: "+item);
         data.add(DataUtil.getColMap("    任务ID", row.getId()));
         data.add(DataUtil.getColMap("    注册编码", row.getEle_code()));
         data.add(DataUtil.getColMap("    电梯名称", row.getEle_name()));
         data.add(DataUtil.getColMap("    电梯地址", row.getEle_addr()));
-
         String type = row.getType();
         String typeName = "";
         if ("1".equals(type)) {
@@ -110,6 +111,10 @@ public class RescueDetailActivity extends CommonActivity {
         }
         data.add(DataUtil.getColMap("    故障类型", typeName));
 
+        if (row.getBrief()!=null) {
+            data.add(DataUtil.getColMap("    故障描述", row.getBrief().toString()));
+        }/*else{
+        data.add(DataUtil.getColMap("    故障描述", "654321--->"));}*/
         String status = row.getStatus();
         String statusName = "";
         if ("1".equals(status)) {
@@ -125,6 +130,8 @@ public class RescueDetailActivity extends CommonActivity {
         }
         data.add(DataUtil.getColMap("    当前状态", statusName));
         data.add(DataUtil.getColMap("    发生时间", DateUtils.secondToDateStr2(row.getCreate_date())));
+        startTime=row.getStart_date();
+        endTime=row.getEnd_date();
 
         listAdapter = new ArrayAdapter<Map<String, String>>(this, R.layout.table_row_list_row, data) {
             @Override
@@ -162,10 +169,8 @@ public class RescueDetailActivity extends CommonActivity {
     }
 
     private void loadData(String id, String eleId) {
+//        Log.i(TAG, "loadData: "+AppContext.API_RESCUE_VIEW+" id="+id+"  ele_id="+eleId+" token="+ AppContext.userInfo.getToken());
         GetBuilder postFormBuilder = OkHttpUtils.get().url(AppContext.API_RESCUE_VIEW + "?uid=" + id + "&ele_id=" + "eleId&token=" + AppContext.userInfo.getToken());
-        //.addParams("token", AppContext.userInfo.getToken())
-        ;
-//        .addParams("uid", id).addParams("ele_id", eleId);
         postFormBuilder.build().execute(new StringCallback() {
             @Override
             public void onResponse(String respData, int arg1) {
@@ -181,7 +186,7 @@ public class RescueDetailActivity extends CommonActivity {
                         if(row1 == null){
                             return;
                         }
-                        Log.i(TAG, "row: "+row1);
+//                        Log.i(TAG, "row: "+row1);
                         Map<String, Object> row = (Map<String, Object>) row1.get("rescue_result");
                         if(row == null){
                             return;
@@ -200,17 +205,21 @@ public class RescueDetailActivity extends CommonActivity {
                         }else{
                             InJuries="有";
                         }
-                        data.add(DataUtil.getColMap("    开始处理时间", DateUtils.secondToDateStr2(DataUtil.mapGetString(row, "start_date"))));
-                        data.add(DataUtil.getColMap("    结束处理时间", DateUtils.secondToDateStr2(DataUtil.mapGetString(row, "end_date"))));
-                        data.add(DataUtil.getColMap("    情况描述", DataUtil.mapGetString(row, "brief")));
-                        data.add(DataUtil.getColMap("    困人数量", DataUtil.mapGetString(row, "haspeople")));
+                        data.add(DataUtil.getColMap("    开始处理时间", DateUtils.secondToDateStr2(startTime)));
+                        data.add(DataUtil.getColMap("    结束处理时间", DateUtils.secondToDateStr2(endTime)));
+                        data.add(DataUtil.getColMap("    情况描述", DataUtil.mapGetString(row, "reason")));
+                        data.add(DataUtil.getColMap("    困人数量", DataUtil.mapGetString(row, "tir_person")));
                         data.add(DataUtil.getColMap("有无人员伤亡", InJuries));
                         data.add(DataUtil.getColMap("是否解救成功", Success));
-                        data.add(DataUtil.getColMap("解救人员数量", DataUtil.mapGetString(row, "haspeople")));
+                        data.add(DataUtil.getColMap("解救人员数量", DataUtil.mapGetString(row, "rescue_person")));
+                        String msg=DataUtil.mapGetString(row, "confirm_brief");
+                        String msgData=DateUtils.secondToDateStr2(DataUtil.mapGetString(row, "wait_confirm_date"));
+                        if (msg.equals("")){
+                            msgData="";
+                        }
 
-                        data.add(DataUtil.getColMap("物业确认时间", DateUtils.secondToDateStr2(DataUtil.mapGetString(row, "last_recv_date"))));
-                        data.add(DataUtil.getColMap("物业反馈内容", DataUtil.mapGetString(row, "confirm_brief")));
-
+                        data.add(DataUtil.getColMap("物业确认时间", msgData));
+                        data.add(DataUtil.getColMap("物业反馈内容", msg));
                         List<List<Map<String, Object>>> imgsMap = (List<List<Map<String, Object>>>) row1.get("imgs");
                         if (imgsMap != null && imgsMap.size() > 0) {
                             for (List<Map<String, Object>> one : imgsMap) {

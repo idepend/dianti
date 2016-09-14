@@ -9,9 +9,8 @@ import com.app.dianti.R;
 import com.app.dianti.activity.BaseActivity;
 import com.app.dianti.activity.base.AnnualActivity;
 import com.app.dianti.activity.base.InspectionActivity;
-import com.app.dianti.activity.base.RescueListActivity;
 import com.app.dianti.activity.base.MaintenanceActivity;
-import com.app.dianti.activity.reskju.ReskjuActivity;
+import com.app.dianti.activity.base.RescueListActivity;
 import com.app.dianti.common.AppContext;
 
 public class MyHistroyActivity extends BaseActivity implements OnClickListener {
@@ -43,7 +42,7 @@ public class MyHistroyActivity extends BaseActivity implements OnClickListener {
 				Intent intent = new Intent(getApplicationContext(), AnnualActivity.class);
 				intent.putExtra("isHistory", true);
 				//type为3代表查询个人历史记录
-				intent.putExtra("type", AppContext.history_my_data_type);
+				intent.putExtra("type", AppContext.history_data_type);
 				startActivity(intent);
 			}
 		});

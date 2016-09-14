@@ -67,7 +67,7 @@ public class MaintenanceDetailActivity extends CommonActivity {
         Logs.e(row.toString());
 
         data = new ArrayList<>();
-        data.add(DataUtil.getColMap("    注册编码11", DataUtil.mapGetString(row, "code")));
+        data.add(DataUtil.getColMap("    注册编码", DataUtil.mapGetString(row, "code")));
         data.add(DataUtil.getColMap("    电梯名称", DataUtil.mapGetString(row, "name")));
         data.add(DataUtil.getColMap("    电梯地址", DataUtil.mapGetString(row, "address")));
         data.add(DataUtil.getColMap("    维保类型", DataUtil.mapGetString(row, "typeName")));

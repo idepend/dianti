@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,7 +48,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private ImageView loginLogo;
     private TextView logoNameTv;
     private String serverAddress1="";
-    private String serverAddress2="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,36 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             goActivity(MainActivity.class);
             finish();
         }
+        /*
+         *加载服务器地址
+         */
+        //海洋
+        UserPreference.ensureIntializePreference(getApplicationContext());
+        String localServerAddress = UserPreference.get("serverAddress", "");
+        if (localServerAddress.equals("")) {
+            //tip("服务器地址配置不正确");
+            AppContext.SERVER_URL = "http://218.75.75.34:10000";
+        } else {
+            AppContext.SERVER_URL = localServerAddress;
+        }
+
+        //汉川
+        String localServerAddress2 = UserPreference.get("serverAddress2", "");
+        if (localServerAddress2.equals("")) {
+            //tip("服务器地址配置不正确");
+            AppContext.SERVER_URL_2 = "http://218.75.75.34:88";
+        } else {
+            AppContext.SERVER_URL_2 = localServerAddress2;
+        }
+
+        AppContext.apiUrlBuild();
         initView();
+        if (localServerAddress2.equals(AppContext.PLATFORM_ADDRESS_ONE)){
+            loginLogo.setImageResource(R.drawable.logo);
+            logoNameTv.setVisibility(View.GONE);
+        }else{
+            loginLogo.setImageResource(R.mipmap.login);
+        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -74,7 +101,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         findViewById(R.id.settingBtn).setOnClickListener(this);
         loginLogo= (ImageView) findViewById(R.id.logo);
         logoNameTv= (TextView) findViewById(R.id.logo_name);
-//         Log.i("wj", "login: "+serverAddress2);
     }
 
     @Override
@@ -96,7 +122,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     private void login() {
-        /*
+         /*
          *加载服务器地址
          */
         //海洋
@@ -137,7 +163,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         password = MD5Util.getMD5Code(password).toUpperCase();
 
         try {
-//            Log.i("wj", "login: "+AppContext.API_LOGIN_URL);
             OkHttpUtils.post().url(AppContext.API_LOGIN_URL).addParams("data", "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}").build().execute(new StringCallback() {
                 @Override
                 public void onResponse(String respData, int arg1) {
@@ -204,9 +229,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             String action=intent.getAction();
             if (action.equals("LoginServerAddress")){
                 serverAddress1=intent.getStringExtra("sererAddress2");
-                serverAddress2=intent.getStringExtra("serverAddress");
-                Log.i("wj", "onReceive: "+serverAddress1+"  2="+serverAddress2);
-                if (serverAddress1.equals("http://121.40.89.242:80") || serverAddress2.equals("http://121.40.89.242:10001")){
+                if (serverAddress1.equals(AppContext.PLATFORM_ADDRESS_ONE)){
                     loginLogo.setImageResource(R.drawable.logo);
                     logoNameTv.setVisibility(View.GONE);
                 }else{

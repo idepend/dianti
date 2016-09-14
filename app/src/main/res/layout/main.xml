@@ -19,7 +19,6 @@
             android:layout_centerInParent="true"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="拱墅质监"
             android:textColor="@color/white"
             android:textSize="19dp"
             android:id="@+id/main_title" />
@@ -259,30 +258,31 @@
                         android:text="故障报警"
                         android:textColor="@color/black" />
                 </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:orientation="vertical" >
+                <LinearLayout
+                    android:id="@+id/notice_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
 
-                                    <ImageButton
-                                        android:id="@+id/gonggaoBtn"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:background="@drawable/tongzhigonggao"
-                                        android:textColor="@color/white"
-                                        android:textSize="14dp"
-                                        android:tint="#737373" />
+                    <ImageButton
+                        android:id="@+id/gonggaoBtn"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/tongzhigonggao"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:tint="#737373" />
 
-                                    <TextView
-                                        android:layout_width="80dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="4dp"
-                                        android:gravity="center"
-                                        android:text="通知公告"
-                                        android:textColor="@color/black" />
-                                </LinearLayout>
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="通知公告"
+                        android:textColor="@color/black" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -309,14 +309,16 @@
                         android:textColor="@color/black" />
                 </LinearLayout>
 
-                <!--<LinearLayout
+                <LinearLayout
+                    android:id="@+id/layout_null"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:orientation="vertical" >
 
-                </LinearLayout>-->
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

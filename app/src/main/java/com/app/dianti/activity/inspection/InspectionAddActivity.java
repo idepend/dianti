@@ -3,11 +3,15 @@ package com.app.dianti.activity.inspection;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +34,10 @@ import com.app.dianti.net.event.RefreshEvent;
 import com.app.dianti.util.Logs;
 import com.app.dianti.vo.ResponseData;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.mycroft.qrscan.skill.activity.CaptureActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -57,6 +65,11 @@ public class InspectionAddActivity extends BaseActivity implements OnClickListen
     private Long id;
     private boolean mIgnore = false;
     private String mTmpPath;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +78,9 @@ public class InspectionAddActivity extends BaseActivity implements OnClickListen
         super.initTitleBar("电梯巡查");
         initView();
         initData();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initView() {
@@ -148,27 +164,120 @@ public class InspectionAddActivity extends BaseActivity implements OnClickListen
         });
     }
 
+    /**
+     *  系统版本编号
+     * @return
+     */
+    private boolean canMakeSmores(){
+
+        return(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+
+    }
+
+    /**
+     * 是否有权限许可
+     * @param permission
+     * @return
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean hasPermission(String permission){
+
+        if(canMakeSmores()){
+            return(checkSelfPermission(permission)== PackageManager.PERMISSION_GRANTED);
+        }
+        return true;
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+
+        switch(permsRequestCode){
+
+            case 200:
+
+                boolean cameraAccepted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+                if(cameraAccepted){
+                    //授权成功之后，调用系统相机进行拍照操作等
+//                    startActivityForResult(new Intent(this, CaptureActivity.class), REQUEST_QRSCAN);
+                    final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/elevator/" + System.currentTimeMillis() + ".jpg");
+                    try {
+                        file.getParentFile().mkdirs();
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mTmpPath = file.getAbsolutePath();
+                    final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTmpPath)));
+                    startActivityForResult(intent, REQUEST_PHOTO_COMPLETE);
+                }else{
+                    //用户授权拒绝之后，友情提示一下就可以了
+                    Toast.makeText(this,"相机授权失败！请重新检查权限",Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+
+        }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.scan_image_view) {
-            startActivityForResult(new Intent(this, CaptureActivity.class), REQUEST_QRSCAN);
-        } else if (view.getId() == R.id.take_button) {
-            final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/elevator/" + System.currentTimeMillis() + ".jpg");
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+        Log.i("wj", "onClick: "+canMakeSmores()+" API= "+Build.VERSION.SDK_INT);
+        if (canMakeSmores()){
+            String[] perms = {"android.permission.CAMERA"};
+            int permsRequestCode = 200;
+            this.requestPermissions(perms, permsRequestCode);
+            if (view.getId() == R.id.scan_image_view) {
+
+                startActivityForResult(new Intent(this, CaptureActivity.class), REQUEST_QRSCAN);
+
+            } else if (view.getId() == R.id.take_button) {
+                final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/elevator/" + System.currentTimeMillis() + ".jpg");
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mTmpPath = file.getAbsolutePath();
+
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTmpPath)));
+
+                startActivityForResult(intent, REQUEST_PHOTO_COMPLETE);//http://gold.xitu.io/entry/57b580596be3ff006a13c3e0
+                Logs.e(mTmpPath);
             }
-            mTmpPath = file.getAbsolutePath();
+        }else {
+//            Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
+            if (view.getId() == R.id.scan_image_view) {
 
-            final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTmpPath)));
+                startActivityForResult(new Intent(this, CaptureActivity.class), REQUEST_QRSCAN);
 
-            startActivityForResult(intent, REQUEST_PHOTO_COMPLETE);
-            Logs.e(mTmpPath);
+            } else if (view.getId() == R.id.take_button) {
+                final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/elevator/" + System.currentTimeMillis() + ".jpg");
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mTmpPath = file.getAbsolutePath();
+
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTmpPath)));
+
+                startActivityForResult(intent, REQUEST_PHOTO_COMPLETE);//http://gold.xitu.io/entry/57b580596be3ff006a13c3e0
+                Logs.e(mTmpPath);
+            }
         }
+
+
     }
 
     @Override
@@ -300,4 +409,39 @@ public class InspectionAddActivity extends BaseActivity implements OnClickListen
         });
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("InspectionAdd Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }
